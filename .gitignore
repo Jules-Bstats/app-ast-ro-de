@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Secrets et configuration locale
+.env
+*.tfvars
+!*.tfvars.example
+*credentials*.json
+service-account*.json
+
+# Terraform (on garde .terraform.lock.hcl dans Git)
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# dbt
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
