@@ -23,3 +23,27 @@ service-account*.json
 dbt/target/
 dbt/logs/
 dbt/dbt_packages/
+
+# Plugins téléchargés par `terraform init`
+.terraform/
+
+# État de Terraform
+*.tfstate
+*.tfstate.*
+
+# Journaux de plantage
+crash.log
+crash.*.log
+
+# Fichiers de valeurs de variables (peuvent contenir des secrets)
+*.tfvars
+*.tfvars.json
+
+# Plans sauvegardés
+*.tfplan
+
+# Fichiers de surcharge locale
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
