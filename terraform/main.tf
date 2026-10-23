@@ -35,3 +35,19 @@ resource "google_secret_manager_secret" "nasa_api_key" {
     }
   }
 }
+resource "google_service_account" "ingestion" {
+  account_id   = "sa-ingestion"
+  display_name = "Compte de service d'ingestion NeoWs"
+}
+
+resource "google_storage_bucket_iam_member" "ingestion_bucket" {
+  bucket = google_storage_bucket.raw.name
+  role   = "roles/storage.objectUser"
+  member = "serviceAccount:${google_service_account.ingestion.email}"
+}
+
+resource "google_secret_manager_secret_iam_member" "ingestion_secret" {
+  secret_id = google_secret_manager_secret.nasa_api_key.id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.ingestion.email}"
+}
