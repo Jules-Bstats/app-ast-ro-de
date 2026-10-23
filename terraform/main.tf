@@ -24,3 +24,14 @@ resource "google_bigquery_dataset" "datasets" {
   delete_contents_on_destroy = true
 }
 
+resource "google_secret_manager_secret" "nasa_api_key" {
+  secret_id = "nasa-api-key"
+
+  replication {
+    user_managed {
+      replicas {
+        location = var.region
+      }
+    }
+  }
+}
