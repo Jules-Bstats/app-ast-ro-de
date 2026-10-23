@@ -6,3 +6,21 @@ resource "google_storage_bucket" "raw" {
   public_access_prevention    = "enforced"
   force_destroy               = true
 }
+
+locals {
+  bq_datasets = {
+    asteroides_raw     = "Données brutes issues de l'API NASA NeoWs"
+    asteroides_staging = "Données nettoyées et typées (modèles dbt staging)"
+    asteroides_marts   = "Tables finales prêtes pour l'analyse (modèles dbt marts)"
+  }
+}
+
+resource "google_bigquery_dataset" "datasets" {
+  for_each = local.bq_datasets
+
+  dataset_id                 = each.key
+  description                = each.value
+  location                   = var.region
+  delete_contents_on_destroy = true
+}
+
